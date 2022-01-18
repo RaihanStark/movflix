@@ -6,8 +6,8 @@ function MovieItem({ title, imgPath, ratingValue }) {
     <Box
       sx={{
         position: "relative",
-        marginLeft: "1.5rem",
         transition: "all 500ms",
+        width: "100%",
         ":hover": {
           transform: "scale(1.07)",
           "@media (min-width: 898.98px)": {

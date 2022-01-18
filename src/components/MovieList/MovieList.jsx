@@ -17,15 +17,7 @@ function MovieList({ titleList }) {
   }, []);
 
   const placeHolderRender = [...Array(20)].map((e, i) => {
-    return (
-      <Skeleton
-        sx={{ marginLeft: "1.5rem" }}
-        key={i}
-        variant="rectangular"
-        width={350}
-        height={197}
-      />
-    );
+    return <Skeleton key={i} variant="rectangular" width={350} height={197} />;
   });
 
   return (
@@ -39,6 +31,8 @@ function MovieList({ titleList }) {
           sx={{
             display: "flex",
             width: "fit-content",
+            columnGap: "1.5rem",
+            paddingLeft: "1.5rem",
           }}
           pb={1}
           pt={2}

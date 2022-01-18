@@ -1,4 +1,5 @@
 import { AppBar, Toolbar, Typography, Button } from "@mui/material";
+import { Link } from "react-router-dom";
 import { APP_NAME } from "../../constraints";
 function Navbar() {
   return (
@@ -7,7 +8,12 @@ function Navbar() {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           {APP_NAME}
         </Typography>
-        <Button color="inherit">Watch List</Button>
+        <Button component={Link} to="/" color="inherit">
+          Home
+        </Button>
+        <Button component={Link} to="/watch-list" color="inherit">
+          Watch List
+        </Button>
       </Toolbar>
     </AppBar>
   );
