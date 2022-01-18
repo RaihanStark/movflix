@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Skeleton } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Scrollbar } from "react-scrollbars-custom";
@@ -16,32 +16,45 @@ function MovieList({ titleList }) {
     });
   }, []);
 
+  const placeHolderRender = [...Array(20)].map((e, i) => {
+    return (
+      <Skeleton
+        sx={{ marginLeft: "1.5rem" }}
+        key={i}
+        variant="rectangular"
+        width={350}
+        height={197}
+      />
+    );
+  });
+
   return (
-    <Box mt={2}>
+    <Box mt={4}>
       <Typography ml={3} variant="h5">
         {titleList}
       </Typography>
 
-      <Scrollbar style={{ width: "100%", height: 250 }}>
+      <Scrollbar style={{ width: "100%", height: 240 }}>
         <Box
           sx={{
             display: "flex",
-            columnGap: ".5rem",
+            width: "fit-content",
           }}
           pb={1}
           pt={2}
         >
-          {movieList &&
-            movieList.map((movie) => {
-              return (
-                <MovieItem
-                  key={movie.id}
-                  title={movie.original_title || movie.name}
-                  imgPath={movie.backdrop_path || movie.poster_path}
-                  ratingValue={movie.vote_average / 2}
-                />
-              );
-            })}
+          {movieList.length === 0
+            ? placeHolderRender
+            : movieList.map((movie) => {
+                return (
+                  <MovieItem
+                    key={movie.id}
+                    title={movie.original_title || movie.name}
+                    imgPath={movie.backdrop_path || movie.poster_path}
+                    ratingValue={movie.vote_average / 2}
+                  />
+                );
+              })}
         </Box>
       </Scrollbar>
     </Box>
