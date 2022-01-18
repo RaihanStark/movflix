@@ -38,6 +38,7 @@ function MovieList({ titleList }) {
                   key={movie.id}
                   title={movie.original_title || movie.name}
                   imgPath={movie.backdrop_path || movie.poster_path}
+                  ratingValue={movie.vote_average / 2}
                 />
               );
             })}

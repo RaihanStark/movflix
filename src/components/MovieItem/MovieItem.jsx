@@ -1,7 +1,7 @@
 import { Box, Typography, Button, Rating } from "@mui/material";
 import React from "react";
 
-function MovieItem({ title, imgPath }) {
+function MovieItem({ title, imgPath, ratingValue }) {
   return (
     <Box
       sx={{
@@ -57,13 +57,16 @@ function MovieItem({ title, imgPath }) {
           {title}
         </Typography>
 
-        <Rating
-          name="no-value"
-          value={5}
+        <Box
           sx={{
             marginBottom: "1rem",
+            display: "flex",
           }}
-        />
+        >
+          <Rating name="no-value" value={ratingValue} precision={0.5} />
+          {ratingValue}
+        </Box>
+
         <Box
           sx={{
             display: "flex",
