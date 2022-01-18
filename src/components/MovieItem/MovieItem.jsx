@@ -1,4 +1,4 @@
-import { Box, Typography, Button, ButtonGroup, Rating } from "@mui/material";
+import { Box, Typography, Button, Rating } from "@mui/material";
 import React from "react";
 
 function MovieItem({ title, imgPath }) {
@@ -64,12 +64,16 @@ function MovieItem({ title, imgPath }) {
             marginBottom: "1rem",
           }}
         />
-        <ButtonGroup disableElevation variant="contained">
-          <Button variant="contained" size="small">
+        <Box
+          sx={{
+            display: "flex",
+          }}
+        >
+          <Button variant="contained" sx={{ marginRight: "1rem" }}>
             View details
           </Button>
           <Button variant="contained">Add to watch list</Button>
-        </ButtonGroup>
+        </Box>
       </Box>
     </Box>
   );
