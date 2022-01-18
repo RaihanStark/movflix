@@ -13,7 +13,6 @@ function MovieList({ titleList }) {
   useEffect(() => {
     axios.get(URL_FETCH).then((res) => {
       setMovieList(res.data.results);
-      console.log(res.data.results);
     });
   }, []);
 
@@ -37,8 +36,8 @@ function MovieList({ titleList }) {
               return (
                 <MovieItem
                   key={movie.id}
-                  title={movie.original_title}
-                  imgPath={movie.backdrop_path}
+                  title={movie.original_title || movie.name}
+                  imgPath={movie.backdrop_path || movie.poster_path}
                 />
               );
             })}

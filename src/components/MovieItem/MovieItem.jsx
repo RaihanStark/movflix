@@ -23,9 +23,11 @@ function MovieItem({ title, imgPath }) {
         src={`https://image.tmdb.org/t/p/w500/${imgPath}`}
         alt={title}
         width="350"
+        height="197"
         draggable="false"
         style={{
           display: "block",
+          objectFit: "cover",
         }}
       />
       <Box
