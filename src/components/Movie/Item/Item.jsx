@@ -12,6 +12,7 @@ function MovieItem({
   imgPath,
   ratingValue,
   itemStyleType,
+  inList = false,
   description = "",
   detailType = "movie",
 }) {
@@ -99,7 +100,7 @@ function MovieItem({
           detailObject={detailObject}
           detailType={detailType}
           detailId={detailId}
-          inList={false}
+          inList={inList}
         />
       </Box>
     </Box>

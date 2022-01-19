@@ -23,6 +23,7 @@ function WatchList() {
             itemStyleType="vertical"
             description={item.overview}
             detailType="movie"
+            inList={true}
           />
         );
       });

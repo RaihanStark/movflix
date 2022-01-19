@@ -1,17 +1,16 @@
 import { Box, Button } from "@mui/material";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { WatchListContext, AppContext } from "../../context";
 
 function MovieActions({ detailObject, detailId, detailType, inList = false }) {
+  const [inListState, setInListState] = useState(inList);
   const [watchList, setWatchList] = useContext(WatchListContext);
   const [appState, setAppState] = useContext(AppContext);
 
-  const onClickListHandler = (id) => {
+  const addItemToList = (id) => {
     // Check Duplication
-    console.log(watchList);
     const isDuplicate = watchList.filter((item) => item.id === id);
-    console.log(isDuplicate);
     if (isDuplicate.length) {
       return setAppState({
         ...appState,
@@ -39,6 +38,38 @@ function MovieActions({ detailObject, detailId, detailType, inList = false }) {
       },
     });
   };
+
+  const removeItemFromList = (id) => {
+    // Check Duplication
+    const isFound = watchList.filter((item) => item.id === id);
+    if (isFound.length) {
+      const name = isFound[0].original_title || isFound[0].name;
+      setWatchList(watchList.filter((item) => item.id !== id));
+      setAppState({
+        ...appState,
+        alert: {
+          ...appState.alert,
+          type: "success",
+          show: true,
+          message: `${name} removed from watch list!`,
+        },
+      });
+      return;
+    }
+
+    setAppState({
+      ...appState,
+      alert: {
+        ...appState.alert,
+        type: "error",
+        show: true,
+        message: `${
+          detailObject.original_title || detailObject.name
+        } already removed watch list!`,
+      },
+    });
+  };
+
   return (
     <Box
       sx={{
@@ -59,7 +90,9 @@ function MovieActions({ detailObject, detailId, detailType, inList = false }) {
       <Button
         variant="contained"
         disableRipple
-        onClick={() => onClickListHandler(detailId)}
+        onClick={() => {
+          inList ? removeItemFromList(detailId) : addItemToList(detailId);
+        }}
       >
         {inList ? "Remove from list" : "Add to watch list"}
       </Button>
