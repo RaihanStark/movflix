@@ -3,19 +3,18 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import StarIcon from "@mui/icons-material/Star";
-import { API_URL } from "../../constraints";
-import MovieList from "../../components/MovieList/MovieList";
+import { API_URL } from "../constraints";
+import MovieList from "../components/Movie/List";
+import { getAPIURL } from "../utils";
 
-function Detail() {
+function Detail(type) {
   let params = useParams();
 
   const [detailMovie, setDetailMovie] = useState({});
   const [loaded, setLoaded] = useState(false);
   const [tabValue, setTabValue] = useState("overview");
 
-  const URL_FETCH =
-    API_URL +
-    `movie/${params.detailId}?api_key=${process.env.REACT_APP_TMDB_APIKEY}&language=en-US`;
+  const URL_FETCH = getAPIURL(`${type}/` + params.detailId);
 
   useEffect(() => {
     // clean up controller

@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 
-import MovieItemVertical from "../../components/MovieItemVertical/MovieItemVertical";
+import MovieItem from "../components/Movie/Item/Item";
 
 function WatchList() {
   return (
@@ -19,10 +19,13 @@ function WatchList() {
       >
         {[...Array(5)].map((item) => {
           return (
-            <MovieItemVertical
+            <MovieItem
+              key={item}
               title="Seal 1"
               imgPath="/7q448EVOnuE3gVAx24krzO7SNXM.jpg"
               ratingValue={4}
+              itemStyleType="vertical"
+              description="lorem ipsum bro"
             />
           );
         })}

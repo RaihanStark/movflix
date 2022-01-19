@@ -1,5 +1,7 @@
 export const APP_NAME = "MovFlix";
 
+// App
+export const SKELETON_PLACEHOLDER_SIZE = 20;
 // API (just shortcuts for rapid development)
 export const API_URL = "https://api.themoviedb.org/3/";
 export const API_ENDPOINTS = {

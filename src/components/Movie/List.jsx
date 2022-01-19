@@ -3,12 +3,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Scrollbar } from "react-scrollbars-custom";
 
-import MovieItem from "../MovieItem/MovieItem";
-import { API_ENDPOINTS, API_URL } from "../../constraints";
+import MovieItem from "./Item/Item";
+import { API_ENDPOINTS, SKELETON_PLACEHOLDER_SIZE } from "../../constraints";
+import { getAPIURL } from "../../utils";
 
 function MovieList({ titleList, sx }) {
   const [movieList, setMovieList] = useState([]);
-  const URL_FETCH = `${API_URL}${API_ENDPOINTS[titleList]}?api_key=${process.env.REACT_APP_TMDB_APIKEY}&language=en-US&page=1`;
+  const URL_FETCH = getAPIURL(API_ENDPOINTS[titleList]);
 
   useEffect(() => {
     // clean up controller
@@ -19,11 +20,34 @@ function MovieList({ titleList, sx }) {
     });
 
     return () => (isSubscribed = false);
-  }, []);
+  }, [URL_FETCH]);
 
-  const placeHolderRender = [...Array(20)].map((e, i) => {
-    return <Skeleton key={i} variant="rectangular" width={350} height={197} />;
-  });
+  const placeHolderRender = [...Array(SKELETON_PLACEHOLDER_SIZE)].map(
+    (e, i) => {
+      return (
+        <Skeleton key={i} variant="rectangular" width={350} height={197} />
+      );
+    }
+  );
+
+  const renderMovieList = () => {
+    if (movieList.length === 0) {
+      return placeHolderRender;
+    } else {
+      return movieList.map((movie) => {
+        return (
+          <MovieItem
+            key={movie.id}
+            movieId={movie.id}
+            title={movie.original_title || movie.name}
+            imgPath={movie.backdrop_path || movie.poster_path}
+            ratingValue={movie.vote_average / 2}
+            itemStyleType="horizontal"
+          />
+        );
+      });
+    }
+  };
 
   return (
     <Box mt={4} sx={sx}>
@@ -42,19 +66,7 @@ function MovieList({ titleList, sx }) {
           pb={1}
           pt={2}
         >
-          {movieList.length === 0
-            ? placeHolderRender
-            : movieList.map((movie) => {
-                return (
-                  <MovieItem
-                    key={movie.id}
-                    movieId={movie.id}
-                    title={movie.original_title || movie.name}
-                    imgPath={movie.backdrop_path || movie.poster_path}
-                    ratingValue={movie.vote_average / 2}
-                  />
-                );
-              })}
+          {renderMovieList()}
         </Box>
       </Scrollbar>
     </Box>
