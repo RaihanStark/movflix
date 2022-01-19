@@ -8,11 +8,30 @@ function MovieActions({ detailObject, detailId, detailType, inList = false }) {
   const [appState, setAppState] = useContext(AppContext);
 
   const onClickListHandler = (id) => {
+    // Check Duplication
+    console.log(watchList);
+    const isDuplicate = watchList.filter((item) => item.id === id);
+    console.log(isDuplicate);
+    if (isDuplicate.length) {
+      return setAppState({
+        ...appState,
+        alert: {
+          ...appState.alert,
+          type: "error",
+          show: true,
+          message: `${
+            detailObject.original_title || detailObject.name
+          } already on watch list!`,
+        },
+      });
+    }
+
     setWatchList(watchList.concat(detailObject));
     setAppState({
       ...appState,
       alert: {
         ...appState.alert,
+        type: "success",
         show: true,
         message: `${
           detailObject.original_title || detailObject.name
