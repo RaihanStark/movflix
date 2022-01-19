@@ -1,9 +1,10 @@
-import { Box } from "@mui/material";
+import { Box, Skeleton } from "@mui/material";
 
 import Rating from "../../UI/Rating";
 import MovieTitle from "../Title";
 import MovieActions from "../Actions";
 import MovieDescription from "../Description";
+import { useState } from "react";
 
 function MovieItem({
   detailObject,
@@ -21,7 +22,7 @@ function MovieItem({
       container: {
         position: "relative",
         transition: "all 500ms",
-        width: "100%",
+        width: "351px",
         ":hover": {
           transform: "scale(1.07)",
           "@media (min-width: 898.98px)": {
@@ -33,6 +34,7 @@ function MovieItem({
         },
       },
       thumbnail: {
+        width: "351px",
         height: "197px",
         display: "block",
         objectFit: "cover",
@@ -79,31 +81,41 @@ function MovieItem({
     },
   };
 
+  const [loading, setLoading] = useState(true);
+
   return (
-    <Box sx={itemStyleTypes[itemStyleType].container}>
+    <>
+      {loading && <Skeleton variant="rectangular" width={350} height={197} />}
       <Box
-        component="img"
-        src={`https://image.tmdb.org/t/p/w500/${imgPath}`}
-        alt={title}
-        width="350"
-        draggable="false"
-        sx={itemStyleTypes[itemStyleType].thumbnail}
-      />
-      <Box
-        sx={itemStyleTypes[itemStyleType].detailInfo}
-        className="info-detail"
+        sx={{
+          ...itemStyleTypes[itemStyleType].container,
+          display: loading ? "none" : "flex",
+        }}
       >
-        <MovieTitle title={title} overflow />
-        {description && <MovieDescription value={description} />}
-        <Rating ratingValue={ratingValue} />
-        <MovieActions
-          detailObject={detailObject}
-          detailType={detailType}
-          detailId={detailId}
-          inList={inList}
+        <Box
+          component="img"
+          src={`https://image.tmdb.org/t/p/w500/${imgPath}`}
+          alt={title}
+          draggable="false"
+          onLoad={() => setLoading(false)}
+          sx={itemStyleTypes[itemStyleType].thumbnail}
         />
+        <Box
+          sx={itemStyleTypes[itemStyleType].detailInfo}
+          className="info-detail"
+        >
+          <MovieTitle title={title} overflow />
+          {description && <MovieDescription value={description} />}
+          <Rating ratingValue={ratingValue} />
+          <MovieActions
+            detailObject={detailObject}
+            detailType={detailType}
+            detailId={detailId}
+            inList={inList}
+          />
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 }
 
