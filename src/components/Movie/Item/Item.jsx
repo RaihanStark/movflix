@@ -10,6 +10,7 @@ function MovieItem({
   ratingValue,
   itemStyleType,
   description = "",
+  detailType = "movie",
 }) {
   const itemStyleTypes = {
     horizontal: {
@@ -91,7 +92,11 @@ function MovieItem({
         <MovieTitle title={title} overflow />
         {description && <MovieDescription value={description} />}
         <Rating ratingValue={ratingValue} />
-        <MovieActions detailId={detailId} inList={false} />
+        <MovieActions
+          detailType={detailType}
+          detailId={detailId}
+          inList={false}
+        />
       </Box>
     </Box>
   );

@@ -1,9 +1,26 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
+import axios from "axios";
 
+import { API_ENDPOINTS } from "../constraints";
+import { getAPIURL } from "../utils";
 import MovieItem from "../components/Movie/Item/Item";
 
 function WatchList() {
+  const [listData, setListData] = useState([]);
+  const URL_FETCH = getAPIURL(API_ENDPOINTS["Top rated movies"]);
+
+  useEffect(() => {
+    // clean up controller
+    let isSubscribed = true;
+
+    axios.get(URL_FETCH).then((res) => {
+      if (isSubscribed) setListData(res.data.results);
+    });
+
+    return () => (isSubscribed = false);
+  }, [URL_FETCH]);
+
   return (
     <div>
       <Typography mx={3} mt={4} mb={3} variant="h5">
@@ -17,15 +34,17 @@ function WatchList() {
           flexDirection: "column",
         }}
       >
-        {[...Array(5)].map((item) => {
+        {listData.map((item) => {
           return (
             <MovieItem
-              key={item}
-              title="Seal 1"
-              imgPath="/7q448EVOnuE3gVAx24krzO7SNXM.jpg"
-              ratingValue={4}
+              key={item.id}
+              detailId={item.id}
+              title={item.original_title || item.name}
+              imgPath={item.backdrop_path || item.poster_path}
+              ratingValue={item.vote_average / 2}
               itemStyleType="vertical"
-              description="lorem ipsum bro"
+              description={item.overview}
+              detailType="movie"
             />
           );
         })}

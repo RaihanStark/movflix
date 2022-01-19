@@ -7,14 +7,14 @@ import { API_URL } from "../constraints";
 import MovieList from "../components/Movie/List";
 import { getAPIURL } from "../utils";
 
-function Detail(type) {
+function Detail() {
   let params = useParams();
 
   const [detailMovie, setDetailMovie] = useState({});
   const [loaded, setLoaded] = useState(false);
   const [tabValue, setTabValue] = useState("overview");
 
-  const URL_FETCH = getAPIURL(`${type}/` + params.detailId);
+  const URL_FETCH = getAPIURL(`${"movie"}/` + params.detailId);
 
   useEffect(() => {
     // clean up controller
