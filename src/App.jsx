@@ -34,7 +34,7 @@ function App() {
       <Routes>
         <Route path="/" element={<PagesHome />} />
         <Route path="/watch-list" element={<PagesWatchList />} />
-        <Route path="/movies" element={<PagesDetail />}>
+        <Route path="/movie" element={<PagesDetail />}>
           <Route path=":detailId" element={<PagesDetail />} />
         </Route>
       </Routes>

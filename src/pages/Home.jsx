@@ -1,5 +1,5 @@
 import MovieList from "../components/Movie/List";
-
+import { API_ENDPOINTS } from "../constraints";
 function Home() {
   const sectionDisplayTitles = [
     "Now playing movies",
@@ -13,7 +13,11 @@ function Home() {
   return (
     <>
       {sectionDisplayTitles.map((title) => (
-        <MovieList key={title} titleList={title} />
+        <MovieList
+          key={title}
+          titleList={title}
+          endpoint={API_ENDPOINTS[title]}
+        />
       ))}
     </>
   );

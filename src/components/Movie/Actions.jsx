@@ -81,7 +81,7 @@ function MovieActions({ detailObject, detailId, detailType, inList = false }) {
     >
       <Button
         component={Link}
-        to={`/detail/${detailType}/${detailId}`}
+        to={`/${detailType}/${detailId}`}
         variant="contained"
         sx={{ marginRight: "1rem" }}
       >
