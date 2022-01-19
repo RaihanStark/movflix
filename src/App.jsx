@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home/Home";
 import WatchList from "./pages/WatchList/WatchList";
+import Detail from "./pages/Detail/Detail";
 
 import { themeOptions } from "./theme";
 function App() {
@@ -17,6 +18,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/watch-list" element={<WatchList />} />
+        <Route path="/detail" element={<Detail />}>
+          <Route path=":detailId" element={<Detail />} />
+        </Route>
       </Routes>
     </ThemeProvider>
   );

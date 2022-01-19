@@ -1,7 +1,8 @@
 import { Box, Typography, Button, Rating } from "@mui/material";
 import React from "react";
+import { Link } from "react-router-dom";
 
-function MovieItem({ title, imgPath, ratingValue }) {
+function MovieItem({ movieId, title, imgPath, ratingValue }) {
   return (
     <Box
       sx={{
@@ -72,7 +73,12 @@ function MovieItem({ title, imgPath, ratingValue }) {
             display: "flex",
           }}
         >
-          <Button variant="contained" sx={{ marginRight: "1rem" }}>
+          <Button
+            component={Link}
+            to={`/detail/${movieId}`}
+            variant="contained"
+            sx={{ marginRight: "1rem" }}
+          >
             View details
           </Button>
           <Button variant="contained">Add to watch list</Button>
