@@ -1,9 +1,12 @@
 import { Box } from "@mui/material";
+
 import Rating from "../../UI/Rating";
 import MovieTitle from "../Title";
 import MovieActions from "../Actions";
 import MovieDescription from "../Description";
+
 function MovieItem({
+  detailObject,
   detailId,
   title,
   imgPath,
@@ -93,6 +96,7 @@ function MovieItem({
         {description && <MovieDescription value={description} />}
         <Rating ratingValue={ratingValue} />
         <MovieActions
+          detailObject={detailObject}
           detailType={detailType}
           detailId={detailId}
           inList={false}

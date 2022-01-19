@@ -1,25 +1,35 @@
-import { useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import axios from "axios";
 
 import { API_ENDPOINTS } from "../constraints";
 import { getAPIURL } from "../utils";
 import MovieItem from "../components/Movie/Item/Item";
+import { WatchListContext } from "../context";
 
 function WatchList() {
-  const [listData, setListData] = useState([]);
-  const URL_FETCH = getAPIURL(API_ENDPOINTS["Top rated movies"]);
+  const [watchList, setWatchList] = useContext(WatchListContext);
 
-  useEffect(() => {
-    // clean up controller
-    let isSubscribed = true;
-
-    axios.get(URL_FETCH).then((res) => {
-      if (isSubscribed) setListData(res.data.results);
-    });
-
-    return () => (isSubscribed = false);
-  }, [URL_FETCH]);
+  const renderWatchList = () => {
+    if (watchList.length > 0) {
+      return watchList.map((item) => {
+        return (
+          <MovieItem
+            key={item.id}
+            detailId={item.id}
+            title={item.original_title || item.name}
+            imgPath={item.backdrop_path || item.poster_path}
+            ratingValue={item.vote_average / 2}
+            itemStyleType="vertical"
+            description={item.overview}
+            detailType="movie"
+          />
+        );
+      });
+    } else {
+      return <h3>There's no watch list!</h3>;
+    }
+  };
 
   return (
     <div>
@@ -34,20 +44,7 @@ function WatchList() {
           flexDirection: "column",
         }}
       >
-        {listData.map((item) => {
-          return (
-            <MovieItem
-              key={item.id}
-              detailId={item.id}
-              title={item.original_title || item.name}
-              imgPath={item.backdrop_path || item.poster_path}
-              ratingValue={item.vote_average / 2}
-              itemStyleType="vertical"
-              description={item.overview}
-              detailType="movie"
-            />
-          );
-        })}
+        {renderWatchList()}
       </Box>
     </div>
   );

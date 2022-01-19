@@ -6,6 +6,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 
 import "./index.css";
 import App from "./App.jsx";
+import { WatchListProvider } from "./context";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import { themeOptions } from "./theme";
 
@@ -16,7 +17,9 @@ ReactDOM.render(
     <ScrollToTop />
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <App />
+      <WatchListProvider>
+        <App />
+      </WatchListProvider>
     </ThemeProvider>
   </BrowserRouter>,
   document.getElementById("root")

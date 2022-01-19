@@ -38,7 +38,8 @@ function MovieList({ titleList, sx }) {
         return (
           <MovieItem
             key={movie.id}
-            movieId={movie.id}
+            detailObject={movie}
+            detailId={movie.id}
             title={movie.original_title || movie.name}
             imgPath={movie.backdrop_path || movie.poster_path}
             ratingValue={movie.vote_average / 2}

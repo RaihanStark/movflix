@@ -26,5 +26,10 @@ export const themeOptions = {
         padding: "0 20px",
       },
     },
+    Mui: {
+      disabled: {
+        backgroundColor: "#ce020dba",
+      },
+    },
   },
 };
