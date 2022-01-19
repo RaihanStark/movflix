@@ -1,5 +1,5 @@
 import { Box, Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { WatchListContext, AppContext } from "../../context";
 
@@ -7,6 +7,8 @@ function MovieActions({ detailObject, detailId, detailType, inList = false }) {
   const [inListState, setInListState] = useState(inList);
   const [watchList, setWatchList] = useContext(WatchListContext);
   const [appState, setAppState] = useContext(AppContext);
+
+  let navigate = useNavigate();
 
   const addItemToList = (id) => {
     // Check Duplication
@@ -80,9 +82,10 @@ function MovieActions({ detailObject, detailId, detailType, inList = false }) {
       }}
     >
       <Button
-        component={Link}
-        to={`/${detailType}/${detailId}`}
         variant="contained"
+        onClick={() =>
+          navigate(`/${detailType}/${detailId}`, { replace: true })
+        }
         sx={{ marginRight: "1rem" }}
       >
         View details

@@ -1,4 +1,11 @@
-import { Box, Typography, Tabs, Tab, CircularProgress } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Tabs,
+  Tab,
+  CircularProgress,
+  Grid,
+} from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -12,24 +19,32 @@ function Detail() {
   let params = useParams();
 
   const [detailMovie, setDetailMovie] = useState({});
+  const [detailMovieVideo, setDetailMovieVideo] = useState({});
   const [loaded, setLoaded] = useState(false);
   const [tabValue, setTabValue] = useState("overview");
 
   const URL_FETCH = getAPIURL(`${"movie"}/` + params.detailId);
 
   useEffect(() => {
+    setLoaded(false);
     // clean up controller
     let isSubscribed = true;
 
     axios.get(URL_FETCH).then((res) => {
       if (isSubscribed) {
         setDetailMovie(res.data);
-        setLoaded(true);
       }
     });
 
+    axios
+      .get(getAPIURL(`${"movie"}/` + params.detailId + "/videos"))
+      .then((res) => {
+        setDetailMovieVideo(res.data.results);
+        setLoaded(true);
+      });
+
     return () => (isSubscribed = false);
-  }, []);
+  }, [URL_FETCH]);
 
   const skeletonDetailMovie = () => {
     return (
@@ -46,7 +61,7 @@ function Detail() {
   };
 
   const renderDetail = () => {
-    if (!loaded) {
+    if (!loaded && detailMovieVideo && detailMovie) {
       return skeletonDetailMovie();
     }
 
@@ -167,29 +182,35 @@ function Detail() {
               my={3}
               sx={{
                 td: {
-                  width: "125px",
+                  padding: "10px 0",
                 },
                 ".table-name": {
                   color: "#727272",
                 },
-                "th, td": {
-                  padding: "10px 0",
+                "td:first-child": {
+                  width: "125px",
                 },
               }}
             >
               <table>
                 <tbody>
                   <tr>
-                    <td className="table-name">Starring</td>
-                    <td>Maria Anders</td>
+                    <td className="table-name">Status</td>
+                    <td>{detailMovie.status}</td>
                   </tr>
                   <tr>
                     <td className="table-name">Created by</td>
-                    <td>Francisco Chang</td>
+                    <td>
+                      {detailMovie.production_companies
+                        .map((production) => production.name)
+                        .join(", ") || "-"}
+                    </td>
                   </tr>
                   <tr>
                     <td className="table-name">Genre</td>
-                    <td>Francisco Chang</td>
+                    <td>
+                      {detailMovie.genres.map((genre) => genre.name).join(", ")}
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -205,13 +226,112 @@ function Detail() {
           </Tabpanel>
 
           <Tabpanel tabId="1" tabName="trailers" tabValue={tabValue}>
-            test2
+            <Grid
+              container
+              spacing={3}
+              sx={{
+                justifyContent: "center",
+                iframe: {
+                  width: "100%",
+                },
+              }}
+            >
+              {detailMovieVideo.slice(0, 6).map((video) => {
+                return (
+                  <Grid
+                    key={video.key}
+                    item
+                    lg={6}
+                    xl={4}
+                    sx={{
+                      width: "100%",
+                    }}
+                  >
+                    <iframe
+                      width="560"
+                      height="315"
+                      src={`https://www.youtube-nocookie.com/embed/${video.key}?controls=0`}
+                      title={video.name}
+                      frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowfullscreen
+                    ></iframe>
+                  </Grid>
+                );
+              })}
+            </Grid>
           </Tabpanel>
           <Tabpanel tabId="2" tabName="more" tabValue={tabValue}>
-            test3
+            <MovieList
+              titleList="Recommendations"
+              endpoint={`movie/${detailMovie.id}/recommendations`}
+              sx={{
+                marginLeft: "-1.5rem",
+              }}
+            />
           </Tabpanel>
           <Tabpanel tabId="3" tabName="details" tabValue={tabValue}>
-            test4
+            <Box
+              my={3}
+              sx={{
+                td: {
+                  padding: "10px 0",
+                },
+                ".table-name": {
+                  color: "#727272",
+                },
+                "td:first-child": {
+                  width: "125px",
+                },
+              }}
+            >
+              <table>
+                <tbody>
+                  <tr>
+                    <td className="table-name">Release Date</td>
+                    <td>{detailMovie.release_date}</td>
+                  </tr>
+                  <tr>
+                    <td className="table-name">Tagline</td>
+                    <td>{detailMovie.tagline}</td>
+                  </tr>
+                  <tr>
+                    <td className="table-name">Production Countries</td>
+                    <td>
+                      {detailMovie.production_countries
+                        .map((country) => country.iso_3166_1)
+                        .join(", ")}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="table-name">Spoken Languages</td>
+                    <td>
+                      {detailMovie.spoken_languages
+                        .map((language) => language.english_name)
+                        .join(", ")}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="table-name">Budget</td>
+                    <td>
+                      {detailMovie.budget.toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                      })}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="table-name">Revenue</td>
+                    <td>
+                      {detailMovie.revenue.toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                      })}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </Box>
           </Tabpanel>
         </div>
       </Box>
