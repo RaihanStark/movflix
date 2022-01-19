@@ -5,7 +5,7 @@ function Navbar() {
   return (
     <AppBar position="sticky">
       <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        <Typography variant="h6" component="div" mr={2}>
           {APP_NAME}
         </Typography>
         <Button component={Link} to="/" color="inherit">
