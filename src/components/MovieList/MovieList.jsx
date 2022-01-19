@@ -6,14 +6,19 @@ import { Scrollbar } from "react-scrollbars-custom";
 import MovieItem from "../MovieItem/MovieItem";
 import { API_ENDPOINTS, API_URL } from "../../constraints";
 
-function MovieList({ titleList }) {
+function MovieList({ titleList, sx }) {
   const [movieList, setMovieList] = useState([]);
   const URL_FETCH = `${API_URL}${API_ENDPOINTS[titleList]}?api_key=${process.env.REACT_APP_TMDB_APIKEY}&language=en-US&page=1`;
 
   useEffect(() => {
+    // clean up controller
+    let isSubscribed = true;
+
     axios.get(URL_FETCH).then((res) => {
-      setMovieList(res.data.results);
+      if (isSubscribed) setMovieList(res.data.results);
     });
+
+    return () => (isSubscribed = false);
   }, []);
 
   const placeHolderRender = [...Array(20)].map((e, i) => {
@@ -21,7 +26,7 @@ function MovieList({ titleList }) {
   });
 
   return (
-    <Box mt={4}>
+    <Box mt={4} sx={sx}>
       <Typography ml={3} variant="h5">
         {titleList}
       </Typography>
