@@ -19,6 +19,9 @@ const DetailHeader = ({ itemData }) => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
+          "@media (max-width: 589.98px)": {
+            flexDirection: "column",
+          },
         }}
       >
         <Box>
@@ -44,9 +47,14 @@ const DetailHeader = ({ itemData }) => {
             display: "flex",
             alignItems: "center",
             paddingLeft: "1rem",
+            "@media (max-width: 589.98px)": {
+              paddingTop: "1rem",
+            },
           }}
         >
-          <Typography variant="h3">{itemData.vote_average} </Typography>
+          <Typography variant="h3" sx={{}}>
+            {itemData.vote_average}{" "}
+          </Typography>
           <StarIcon
             sx={{
               color: "#F1C40F",
