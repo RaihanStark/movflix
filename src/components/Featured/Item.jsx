@@ -48,7 +48,7 @@ function FeaturedItem() {
               height: "105%",
               position: "absolute",
               background:
-                "linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(19,19,19,1) 93%)",
+                "linear-gradient(180deg, transparent 0%, rgba(19,19,19,1) 93%)",
             }}
           ></Box>
           <Box
@@ -57,15 +57,15 @@ function FeaturedItem() {
               height: "405px",
               position: "absolute",
               background:
-                "linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(19,19,19,1) 60%)",
+                "linear-gradient(180deg, transparent 0%, rgba(19,19,19,1) 60%)",
               "@media (min-width:687.98px)": {
                 background:
-                  "linear-gradient(270deg, rgba(255,255,255,0) 0%, rgba(19,19,19,1) 60%)",
+                  "linear-gradient(270deg, transparent 0%, rgba(19,19,19,1) 60%)",
                 height: "560px",
               },
               "@media (min-width:1598.99px)": {
                 background:
-                  "linear-gradient(270deg, rgba(255,255,255,0) 0%, rgba(19,19,19,1) 70%)",
+                  "linear-gradient(270deg, transparent 0%, rgba(19,19,19,1) 70%)",
                 height: "705px",
               },
             }}
