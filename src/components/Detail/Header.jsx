@@ -34,7 +34,7 @@ const DetailHeader = ({ itemData }) => {
               letterSpacing: "2px",
             }}
           >
-            {renderReleaseDate()} | {renderitemLength()}|{" "}
+            {renderReleaseDate()} | {renderitemLength()} |{" "}
             {itemData.original_language}
           </Typography>
         </Box>
