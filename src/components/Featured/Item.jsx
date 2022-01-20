@@ -32,16 +32,6 @@ function FeaturedItem() {
       <div>
         <Box
           sx={{
-            width: "100%",
-            height: "105%",
-            position: "absolute",
-            background:
-              "linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(19,19,19,1) 93%)",
-          }}
-        ></Box>
-
-        <Box
-          sx={{
             height: "400px",
             position: "relative",
             "@media (min-width:687.98px)": {
@@ -49,6 +39,15 @@ function FeaturedItem() {
             },
           }}
         >
+          <Box
+            sx={{
+              width: "100%",
+              height: "105%",
+              position: "absolute",
+              background:
+                "linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(19,19,19,1) 93%)",
+            }}
+          ></Box>
           <Box
             sx={{
               width: "100%",
