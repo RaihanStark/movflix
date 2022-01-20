@@ -37,6 +37,9 @@ function FeaturedItem() {
             "@media (min-width:687.98px)": {
               height: "550px",
             },
+            "@media (min-width:1598.99px)": {
+              height: "700px",
+            },
           }}
         >
           <Box
@@ -63,6 +66,7 @@ function FeaturedItem() {
               "@media (min-width:1598.99px)": {
                 background:
                   "linear-gradient(270deg, rgba(255,255,255,0) 0%, rgba(19,19,19,1) 70%)",
+                height: "705px",
               },
             }}
           ></Box>
