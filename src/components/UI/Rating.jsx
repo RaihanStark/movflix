@@ -4,7 +4,7 @@ import MaterialRating from "@mui/material/Rating";
 
 import { AppContext } from "../../context";
 
-function Rating({ ratingValue }) {
+function Rating({ ratingValue, disableValueDisplay = false }) {
   const [appState, setAppState] = useContext(AppContext);
 
   const ratingHandler = (e) => {
@@ -32,7 +32,9 @@ function Rating({ ratingValue }) {
         value={ratingValue}
         precision={1}
       />
-      {ratingValue}
+      {!disableValueDisplay ? (
+        <span style={{ marginLeft: "0.5rem" }}>{ratingValue}</span>
+      ) : null}
     </Box>
   );
 }

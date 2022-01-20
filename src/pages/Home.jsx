@@ -1,4 +1,5 @@
 import MovieList from "../components/Movie/List";
+import FeaturedItem from "../components/Featured/Item";
 import { API_ENDPOINTS } from "../constraints";
 function Home() {
   const sectionDisplayTitles = [
@@ -12,6 +13,7 @@ function Home() {
   ];
   return (
     <>
+      <FeaturedItem />
       {sectionDisplayTitles.map((title) => (
         <MovieList
           key={title}
