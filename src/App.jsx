@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 import Navbar from "./components/UI/Navbar";
 
@@ -11,6 +11,7 @@ import { Alert, Snackbar } from "@mui/material";
 
 function App() {
   const [appState, setAppState] = useContext(AppContext);
+  let navigate = useNavigate();
   return (
     <>
       <Navbar />
@@ -40,6 +41,12 @@ function App() {
         <Route path="/tv" element={<PagesDetail />}>
           <Route path=":detailId" element={<PagesDetail />} />
         </Route>
+        <Route
+          path="*"
+          element={
+            <h1 style={{ marginLeft: "1.5rem" }}>There's nothing here</h1>
+          }
+        />
       </Routes>
     </>
   );
