@@ -7,7 +7,7 @@
 
 ## How to Install
 
-Rename `.env.example` to `.env.example`
+Rename `.env.example` to `.env`
 Add your api on `REACT_APP_TMDB_APIKEY`
 run `yarn install`
 
