@@ -94,10 +94,15 @@ function MovieItem({
       >
         <Box
           component="img"
-          src={`https://image.tmdb.org/t/p/w500/${imgPath}`}
+          src={
+            imgPath
+              ? `https://image.tmdb.org/t/p/w500${imgPath}`
+              : `https://staging.inatrade.co.id/public/assets/img/placeholder.jpg`
+          }
           alt={title}
           draggable="false"
           onLoad={() => setLoading(false)}
+          onError={() => setLoading(false)}
           sx={itemStyleTypes[itemStyleType].thumbnail}
         />
         <Box

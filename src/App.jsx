@@ -37,6 +37,9 @@ function App() {
         <Route path="/movie" element={<PagesDetail />}>
           <Route path=":detailId" element={<PagesDetail />} />
         </Route>
+        <Route path="/tv" element={<PagesDetail />}>
+          <Route path=":detailId" element={<PagesDetail />} />
+        </Route>
       </Routes>
     </>
   );

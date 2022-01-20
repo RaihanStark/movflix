@@ -7,7 +7,7 @@ import MovieItem from "./Item/Item";
 import { API_ENDPOINTS, SKELETON_PLACEHOLDER_SIZE } from "../../constraints";
 import { getAPIURL } from "../../utils";
 
-function MovieList({ titleList, endpoint, sx }) {
+function MovieList({ titleList, type, endpoint, sx }) {
   const [movieList, setMovieList] = useState([]);
   const URL_FETCH = getAPIURL(endpoint);
 
@@ -44,7 +44,7 @@ function MovieList({ titleList, endpoint, sx }) {
             imgPath={movie.backdrop_path || movie.poster_path}
             ratingValue={movie.vote_average / 2}
             itemStyleType="horizontal"
-            detailType="movie"
+            detailType={type}
           />
         );
       });

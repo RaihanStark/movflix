@@ -16,7 +16,8 @@ function Home() {
         <MovieList
           key={title}
           titleList={title}
-          endpoint={API_ENDPOINTS[title]}
+          endpoint={API_ENDPOINTS[title].value}
+          type={API_ENDPOINTS[title].type}
         />
       ))}
     </>
